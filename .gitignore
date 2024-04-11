@@ -1,0 +1,6 @@
+nasm*
+ndisasm
+man1/
+
+*.o
+*.d
