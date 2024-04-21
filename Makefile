@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/12 06:09:26 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/21 12:03:03 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,13 @@
 # **************************************************************************** #
 
 AS = nasm
-ASFLAGS = -f elf64
+ASFLAGS	= -w+error=all
+
+ifeq ($(shell uname), Darwin)
+ASFLAGS	+= -f macho64
+else
+ASFLAGS	+= -f elf64
+endif
 
 $(AS):
 	$(MAKE) all_nasm
