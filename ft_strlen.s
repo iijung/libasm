@@ -1,0 +1,20 @@
+section .text
+    global  ft_strlen
+
+ft_strlen:
+    push    rbp
+    mov     rbp, rsp
+
+    push    rcx
+
+    xor     rax, rax
+    mov     rcx, -1
+    repne   scasb
+    mov     rax, -1
+    sub     rax, rcx
+    dec     rax
+
+    pop     rcx
+
+    pop     rbp
+    ret
