@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/25 00:12:14 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/25 03:22:04 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,10 @@
 # **************************************************************************** #
 
 LIBS = ../libasm.a
+
+ifdef DEBUG
+CFLAGS = -g
+endif
 
 CPPFLAGS = $(foreach dir, $(dir $(LIBS)), -I$(dir))
 LDFLAGS = $(foreach dir, $(dir $(LIBS)), -L$(dir))

@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/24 22:24:26 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/25 02:59:02 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,10 @@
 
 AS = ./nasm
 ASFLAGS	= -w+error=all
+
+ifdef DEBUG
+ASFLAGS	+= -g
+endif
 
 ifeq ($(shell uname), Darwin)
 ASFLAGS	+= -f macho64
@@ -37,6 +41,8 @@ $(AS):
 # **************************************************************************** #
 
 NAME = libasm.a
+
+ARFLAGS = rcs
 
 SRCS_M = \
 	ft_strlen.s \
