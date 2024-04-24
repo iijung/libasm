@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/24 22:45:15 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/25 00:12:14 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,9 @@ BINS_M = \
 
 BINS_B = \
 
-all:
-	$(foreach bin, $(BINS_M), $(MAKE) $(bin))
+all: $(BINS_M)
 
-bonus:
-	$(foreach bin, $(BINS_M), $(MAKE) $(bin))
-	$(foreach bin, $(BINS_B), $(MAKE) $(bin))
+bonus: $(BINS_M) $(BINS_B)
 
 clean:
 	$(RM) $(BINS_M) $(BINS_B)
