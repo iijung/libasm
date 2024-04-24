@@ -5,6 +5,7 @@ ft_strlen:
     push    rbp
     mov     rbp, rsp
 
+    push    rdi
     push    rcx
 
     xor     rax, rax
@@ -15,6 +16,7 @@ ft_strlen:
     dec     rax
 
     pop     rcx
+    pop     rdi
 
     pop     rbp
     ret
