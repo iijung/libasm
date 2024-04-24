@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/25 03:22:04 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/25 03:22:32 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ $(LIBS):
 
 BINS_M = \
 	ft_strlen \
+	ft_strcpy \
 
 BINS_B = \
 
