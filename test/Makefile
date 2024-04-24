@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/24 22:43:05 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/24 22:45:15 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ $(LIBS):
 .PHONY: all bonus clean fclean re
 
 BINS_M = \
+	ft_strlen \
 
 BINS_B = \
 
