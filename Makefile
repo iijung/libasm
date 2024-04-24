@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/21 12:03:03 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/24 22:22:59 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 # for nasm
 # **************************************************************************** #
 
-AS = nasm
+AS = ./nasm
 ASFLAGS	= -w+error=all
 
 ifeq ($(shell uname), Darwin)
@@ -53,13 +53,14 @@ SRCS_B = \
 	ft_list_sort.s \
 	ft_list_remove_if \
 
-SRCS = # TODO: SRCS_M + SRCS_B
+SRCS = \
+	# TODO: SRCS_M + SRCS_B
 
 OBJS = $(SRCS:.s=.o)
 DEPS = $(SRCS:.s=.d)
 -include $(DEPS)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) | $(AS)
 	$(AR) $(ARFLAGS) $@ $^
 
 # **************************************************************************** #
