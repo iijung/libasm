@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/25 03:09:07 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/25 03:57:34 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS_B = \
 SRCS = \
 	ft_strlen.s \
 	ft_strcpy.s \
+	ft_strcmp.s \
 	# TODO: SRCS_M + SRCS_B
 
 OBJS = $(SRCS:.s=.o)
