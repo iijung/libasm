@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/28 01:45:18 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/28 22:55:32 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ ifeq ($(shell uname), Darwin)
 ASFLAGS	+= -f macho64
 else
 ASFLAGS	+= -f elf64
+ASFLAGS	+= -D __LINUX__
 endif
 
 $(AS):
@@ -64,6 +65,7 @@ SRCS = \
 	ft_strcpy.s \
 	ft_strcmp.s \
 	ft_strdup.s \
+	ft_write.s \
 	# TODO: SRCS_M + SRCS_B
 
 OBJS = $(SRCS:.s=.o)

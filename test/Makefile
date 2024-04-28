@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/28 02:11:00 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/28 21:49:11 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ BINS_M = \
 	ft_strcpy \
 	ft_strcmp \
 	ft_strdup \
+	ft_write \
 
 BINS_B = \
 
