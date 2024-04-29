@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/29 02:06:59 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/29 15:52:31 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,12 +61,7 @@ SRCS_B = \
 	ft_list_remove_if \
 
 SRCS = \
-	ft_strlen.s \
-	ft_strcpy.s \
-	ft_strcmp.s \
-	ft_strdup.s \
-	ft_write.s \
-	ft_read.s \
+	$(SRCS_M) \
 	# TODO: SRCS_M + SRCS_B
 
 OBJS = $(SRCS:.s=.o)
