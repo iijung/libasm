@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/29 15:52:31 by minjungk         ###   ########.fr        #
+#    Updated: 2024/04/30 10:24:00 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,15 @@
 AS = ./nasm
 ASFLAGS	= -w+error=all
 
-ifdef DEBUG
-ASFLAGS	+= -g
-endif
-
 ifeq ($(shell uname), Darwin)
 ASFLAGS	+= -f macho64
 else
 ASFLAGS	+= -f elf64
 ASFLAGS	+= -D __LINUX__
+endif
+
+ifdef DEBUG
+ASFLAGS	+= -g
 endif
 
 $(AS):
