@@ -10,9 +10,11 @@
 
 section .text
     global  ft_read
+    global  _ft_read
     extern  ERRNO_SYM
 
 ft_read:
+_ft_read:
     mov     rax, SYS_READ
     syscall
     cmp     rax, 0

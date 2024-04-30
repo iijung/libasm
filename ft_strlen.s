@@ -1,7 +1,9 @@
 section .text
     global  ft_strlen
+    global  _ft_strlen
 
 ft_strlen:
+_ft_strlen:
     push    rbp
     mov     rbp, rsp
 

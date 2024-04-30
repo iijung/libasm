@@ -10,9 +10,11 @@
 
 section .text
     global  ft_write
+    global  _ft_write
     extern  ERRNO_SYM
 
 ft_write:
+_ft_write:
     mov     rax, SYS_WRITE
     syscall
     cmp     rax, 0
