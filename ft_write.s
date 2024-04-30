@@ -1,14 +1,16 @@
 %ifdef __LINUX__
     SYS_WRITE   equ 1
-    %define ERRNO   __errno_location
+    %define ERRNO_SYM   __errno_location
+    %define ERRNO_CALL  __errno_location wrt ..plt
 %else
     SYS_WRITE   equ 0x2000004
-    %define ERRNO   ___error
+    %define ERRNO_SYM   ___error
+    %define ERRNO_CALL  ___error
 %endif
 
 section .text
     global  ft_write
-    extern  __errno_location
+    extern  ERRNO_SYM
 
 ft_write:
     mov     rax, SYS_WRITE
@@ -17,10 +19,10 @@ ft_write:
     jl     .errno
     ret
 
-.errno:
+    .errno:
     neg     rax
     mov     rdx, rax
-    call    ERRNO wrt ..plt
+    call    ERRNO_CALL
     mov     [rax], rdx
     mov     rax, -1
     ret

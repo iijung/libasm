@@ -1,6 +1,21 @@
+%ifdef __LINUX__
+    SYS_WRITE   equ 1
+    %define MALLOC_SYM  malloc
+    %define MALLOC_CALL malloc wrt ..plt
+    %define ERRNO_SYM   __errno_location
+    %define ERRNO_CALL  __errno_location wrt ..plt
+%else
+    SYS_WRITE   equ 0x2000001
+    %define MALLOC_SYM  malloc
+    %define MALLOC_CALL malloc
+    %define ERRNO_SYM   ___error
+    %define ERRNO_CALL  ___error
+%endif
+
 section .text
     global  ft_strdup
-    extern  malloc
+    extern  ERRNO_SYM
+    extern  MALLOC_SYM
 
 ft_strdup:
     push    rbp
@@ -19,9 +34,9 @@ ft_strdup:
 
     ; rax = malloc(rdi)
     mov     rdi, rbx
-    call    malloc wrt ..plt
-    cmp     rax, 0
-    je      .copy_end
+    call    MALLOC_CALL
+    test    rax, rax
+    jz     .errno
     mov     rdi, rax
     mov     rsi, [rbp - 8]
     mov     rcx, rbx
@@ -35,3 +50,11 @@ ft_strdup:
 
     pop     rbp
     ret
+
+    .errno:
+    neg     rax
+    mov     rdx, rax
+    call    ERRNO_CALL
+    mov     [rax], rdx
+    mov     rax, -1
+    jmp     .copy_end
