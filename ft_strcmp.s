@@ -23,6 +23,7 @@ ft_strcmp:
     jmp     .loop
     .loop_end:
 
+    xor     rax, rax
     mov     al, [rdi + rcx]
     sub     al, [rsi + rcx]
 
