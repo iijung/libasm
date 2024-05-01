@@ -28,6 +28,10 @@ _ft_strcmp:
     xor     rax, rax
     mov     al, [rdi + rcx]
     sub     al, [rsi + rcx]
+    test    al, al
+    jns     .positive
+    movsx   rax, al
+    .positive:
 
     pop     rbx
     pop     rsi
