@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/04/30 10:24:09 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/06 00:02:54 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ BINS_M = \
 	ft_read \
 
 BINS_B = \
+	ft_atoi_base \
 
 all: $(BINS_M)
 

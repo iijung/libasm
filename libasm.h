@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 22:14:41 by minjungk          #+#    #+#             */
-/*   Updated: 2024/04/29 02:07:34 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/06 01:45:33 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ extern char		*ft_strdup(const char *s);
 extern int		ft_strcmp(const char *s1, const char *s2);
 extern ssize_t	ft_write(int fd, const void *buf, size_t count);
 extern ssize_t	ft_read(int fd, const void *buf, size_t count);
+
+extern int		ft_atoi_base(char *str, char *base);
 
 #endif /* LIBASM_H */
