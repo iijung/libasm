@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 22:14:41 by minjungk          #+#    #+#             */
-/*   Updated: 2024/05/07 11:03:27 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:05:58 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ extern ssize_t	ft_read(int fd, const void *buf, size_t count);
 
 extern int		ft_atoi_base(char *str, char *base);
 extern void		ft_list_push_front(t_list **begin_list, void *data);
+extern int		ft_list_size(t_list *begin_list);
 
 #endif /* LIBASM_H */
