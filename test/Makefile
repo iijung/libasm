@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/06 00:02:54 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/07 07:37:05 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ BINS_M = \
 
 BINS_B = \
 	ft_atoi_base \
+	ft_list_push_front \
 
 all: $(BINS_M)
 

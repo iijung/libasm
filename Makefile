@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/06 00:02:42 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/07 11:02:48 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRCS_B = \
 SRCS = \
 	$(SRCS_M) \
 	ft_atoi_base.s \
+	ft_list_push_front.s \
 	# TODO: SRCS_M + SRCS_B
 
 OBJS = $(SRCS:.s=.o)
