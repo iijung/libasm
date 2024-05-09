@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 22:14:41 by minjungk          #+#    #+#             */
-/*   Updated: 2024/05/09 17:03:46 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/10 03:00:09 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ extern int		ft_atoi_base(char *str, char *base);
 extern void		ft_list_push_front(t_list **begin_list, void *data);
 extern int		ft_list_size(t_list *begin_list);
 extern void		ft_list_sort(t_list **begin_list, int (*cmp)());
+extern void		ft_list_remove_if(t_list **begin_list,
+					void *data_ref,
+					int (*cmp)(),
+					void (*free_fct)(void *));
 
 #endif /* LIBASM_H */

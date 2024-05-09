@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/07 11:06:22 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/10 04:50:25 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ BINS_B = \
 	ft_list_push_front \
 	ft_list_size \
 	ft_list_sort \
+	ft_list_remove_if \
 
 all: $(BINS_M)
 
