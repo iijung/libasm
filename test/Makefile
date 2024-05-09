@@ -50,6 +50,7 @@ BINS_B = \
 	ft_atoi_base \
 	ft_list_push_front \
 	ft_list_size \
+	ft_list_sort \
 
 all: $(BINS_M)
 

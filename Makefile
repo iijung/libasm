@@ -65,6 +65,7 @@ SRCS = \
 	ft_atoi_base.s \
 	ft_list_push_front.s \
 	ft_list_size.s \
+	ft_list_sort.s \
 	# TODO: SRCS_M + SRCS_B
 
 OBJS = $(SRCS:.s=.o)
