@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/10 04:32:56 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/10 16:04:07 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,15 +60,6 @@ SRCS_B = \
 	ft_list_sort.s \
 	ft_list_remove_if.s \
 
-SRCS = \
-	$(SRCS_M) \
-	ft_atoi_base.s \
-	ft_list_push_front.s \
-	ft_list_size.s \
-	ft_list_sort.s \
-	ft_list_remove_if.s \
-	# TODO: SRCS_M + SRCS_B
-
 OBJS = $(SRCS:.s=.o)
 DEPS = $(SRCS:.s=.d)
 -include $(DEPS)
@@ -77,19 +68,22 @@ DEPS = $(SRCS:.s=.d)
 	$(COMPILE.s) -o $@ $<
 
 $(NAME): $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
+	$(AR) $(ARFLAGS) $@ $?
 
 # **************************************************************************** #
 # rules
 # **************************************************************************** #
 .PHONY: all bonus clean fclean re
 
-all: $(NAME)
+all:
+	$(MAKE) SRCS="$(SRCS_M)" $(NAME)
 
-bonus: $(NAME)
+bonus:
+	$(MAKE) SRCS="$(SRCS_M) $(SRCS_B)" $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(DEPS)
+	$(RM) $(wildcard *.o)
+	$(RM) $(wildcard *.d)
 
 fclean: clean
 	$(RM) $(NAME)
