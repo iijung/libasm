@@ -45,6 +45,15 @@ section .text
     ret
 %endmacro
 
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
 ;===============================================================================
 ; static t_list *merge(t_list *left, t_list *right)
 ;===============================================================================
@@ -76,7 +85,7 @@ merge:
         mov     rax, [rel cmp]
         mov     rdi, qword [r12 + t_list.data]
         mov     rsi, qword [r13 + t_list.data]
-        call    rax
+        safe_call rax
 
         test    eax, eax
         jg      .get_right

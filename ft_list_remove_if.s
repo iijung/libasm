@@ -43,6 +43,15 @@ section .text
     ret
 %endmacro
 
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
 ;===============================================================================
 ; static t_list *delete_node(t_list *node, void (*free_fct)(void *));
 ;===============================================================================
@@ -58,7 +67,7 @@ delete_node:
 
     .data:
     mov   rdi, qword [rbx + t_list.data]
-    call  rsi
+    safe_call rsi
 
     .node:
     mov   qword [rbx + t_list.data], 0
@@ -107,9 +116,7 @@ _ft_list_remove_if:
         ; if (cmp(next->data, ref) != 0) continue
         mov     rdi, qword [rdx + t_list.data]
         mov     rsi, r13
-        sub     rsp, 8
-        call    r14
-        add     rsp, 8
+        safe_call r14
         test    eax, eax
         jz      .delete
 
