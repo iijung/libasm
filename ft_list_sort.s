@@ -6,14 +6,14 @@
     %define ERRNO_CALL  ___error
 %endif
 
-section .bss
-    head: resq 2
-    cmp:  resq 1
-
 struc t_list
     .data: resq 1
     .next: resq 1
 endstruc
+
+section .bss
+    head: resb t_list_size
+    cmp:  resq 1
 
 section .text
     global  ft_list_sort
@@ -76,9 +76,7 @@ merge:
         mov     rax, [rel cmp]
         mov     rdi, qword [r12 + t_list.data]
         mov     rsi, qword [r13 + t_list.data]
-        sub     rsp, 8
         call    rax
-        add     rsp, 8
 
         test    eax, eax
         jg      .get_right
@@ -168,18 +166,19 @@ _ft_list_sort:
 
     .start:
     procedure_start
-    mov     rbx, rdi
-    mov     qword [rel cmp], rsi
+    mov     rbx, rdi       ; begin_list
+    lea     rax, [rel cmp] ; cmp = cmp
+    mov     [rax], rsi
 
     ; rax = ft_list_size(*begin_list)
-    mov     rdi, qword [rbx]
+    mov     rdi, [rbx]
     call    ft_list_size
 
     ; rax = divide(*begin_list, ft_list_size(*begin_list))
-    mov     rdi, qword [rbx]
+    mov     rdi, [rbx]
     mov     rsi, rax
     call    divide
   
     ; *head = rax 
-    mov   qword [rbx], rax
+    mov   [rbx], rax
     procedure_end
