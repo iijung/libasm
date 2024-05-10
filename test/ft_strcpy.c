@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 23:52:51 by minjungk          #+#    #+#             */
-/*   Updated: 2024/04/25 03:19:54 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:17:07 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ static void	_usage(const char *pgname)
 
 int	main(int argc, char **argv)
 {
-	char	*rtn;
-	char	*src;
-	char	*dest;
+	char		*rtn;
+	char		*src;
+	char		*dest;
+	const char	*result[2] = {"❌", "✅"};
 
 	if (argc != 2)
 	{
@@ -49,7 +50,8 @@ int	main(int argc, char **argv)
 	printf("===============================================================\n");
 	printf("%s\n", rtn);
 	printf("===============================================================\n");
-	printf("address[%d] data[%d]\n", rtn == dest, 0 == strcmp(src, dest));
+	printf("%s address\n", result[rtn == dest]);
+	printf("%s strcmp(src, dst)\n", result[0 == strcmp(src, dest)]);
 	free(dest);
 	return (EXIT_SUCCESS);
 }
