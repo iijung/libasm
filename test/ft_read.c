@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 02:07:56 by minjungk          #+#    #+#             */
-/*   Updated: 2024/04/29 03:11:47 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/14 04:17:00 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static void	_test(const char *expect)
 	fd[0] = open(expect, O_RDONLY);
 	fd[1] = mkstemp(output);
 	assert(fd[0] != -1 && fd[1] != -1);
-	len = read(fd[0], buf, sizeof(buf));
+	len = ft_read(fd[0], buf, sizeof(buf));
 	while (len > 0)
 	{
 		write(fd[1], buf, len);
 		write(STDOUT_FILENO, buf, len);
-		len = read(fd[0], buf, sizeof(buf));
+		len = ft_read(fd[0], buf, sizeof(buf));
 	}
 	sprintf(command, "diff %s %s", expect, output);
 	printf("\n");

@@ -3,7 +3,7 @@
     %define ERRNO_SYM   __errno_location
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
-    SYS_READ    equ 0x2000000
+    SYS_READ    equ 0x2000003
     %define ERRNO_SYM   ___error
     %define ERRNO_CALL  ___error
 %endif
