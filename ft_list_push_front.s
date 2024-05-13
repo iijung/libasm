@@ -48,6 +48,15 @@ section .text
     ret
 %endmacro
 
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
 ;===============================================================================
 ; extern t_list *ft_create_elem(void *data);
 ;===============================================================================
@@ -56,7 +65,7 @@ ft_create_elem:
     procedure_start
     push    rdi
     mov     rdi, t_list_size
-    call    MALLOC_CALL
+    safe_call MALLOC_CALL
     pop     rdi
     test    rax, rax
     jz      .enomem
@@ -65,7 +74,7 @@ ft_create_elem:
     procedure_end
 
     .enomem:
-    call    ERRNO_CALL
+    safe_call ERRNO_CALL
     mov     [rax], byte 12 ; ENOMEM
     xor     rax, rax
     procedure_end

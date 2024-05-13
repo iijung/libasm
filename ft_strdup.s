@@ -18,6 +18,23 @@ section .text
     extern  ERRNO_SYM
     extern  MALLOC_SYM
 
+;===============================================================================
+; macro
+;===============================================================================
+
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
+;===============================================================================
+; char *strdup(const char *s1);
+;===============================================================================
+
 ft_strdup:
 _ft_strdup:
     push    rbp
@@ -36,7 +53,7 @@ _ft_strdup:
 
     ; rax = malloc(rdi)
     mov     rdi, rbx
-    call    MALLOC_CALL
+    safe_call MALLOC_CALL
     test    rax, rax
     jz     .errno
     mov     rdi, rax
@@ -56,7 +73,7 @@ _ft_strdup:
     .errno:
     neg     rax
     mov     rdx, rax
-    call    ERRNO_CALL
+    safe_call ERRNO_CALL
     mov     [rax], rdx
     mov     rax, -1
     jmp     .copy_end

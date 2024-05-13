@@ -13,6 +13,23 @@ section .text
     global  _ft_write
     extern  ERRNO_SYM
 
+;===============================================================================
+; macro
+;===============================================================================
+
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
+;===============================================================================
+; ssize_t ft_write(int fildes, const void *buf, size_t nbytes);
+;===============================================================================
+
 ft_write:
 _ft_write:
     mov     rax, SYS_WRITE
@@ -24,7 +41,7 @@ _ft_write:
     .errno:
     neg     rax
     mov     rdx, rax
-    call    ERRNO_CALL
+    safe_call ERRNO_CALL
     mov     [rax], rdx
     mov     rax, -1
     ret

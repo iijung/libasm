@@ -13,6 +13,23 @@ section .text
     global  _ft_read
     extern  ERRNO_SYM
 
+;===============================================================================
+; macro
+;===============================================================================
+
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
+;===============================================================================
+; ssize_t ft_read(int fildes, void *buf, size_t nbyte);
+;===============================================================================
+
 ft_read:
 _ft_read:
     mov     rax, SYS_READ
@@ -24,7 +41,7 @@ _ft_read:
     .errno:
     neg     rax
     mov     rdx, rax
-    call    ERRNO_CALL
+    safe_call ERRNO_CALL
     mov     [rax], rdx
     mov     rax, -1
     ret

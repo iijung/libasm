@@ -43,6 +43,15 @@ section .text
     ret
 %endmacro
 
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
 ;===============================================================================
 ; extern int ft_list_size(t_list *begin_list);
 ;===============================================================================
@@ -67,7 +76,7 @@ _ft_list_size:
     procedure_end
 
     .eoverflow:
-    call    ERRNO_CALL
+    safe_call ERRNO_CALL
     mov     [rax], byte 84 ; EOVERFLOW
     mov     rax, 0x7fffffff
     procedure_end

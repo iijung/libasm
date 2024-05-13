@@ -39,6 +39,15 @@ section .text
     ret
 %endmacro
 
+%macro  safe_call 1
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 8
+    and     rsp, -16
+    call    %1
+    leave
+%endmacro
+
 ;===============================================================================
 ; char *strchr(const char *s, int c)
 ;===============================================================================
@@ -192,14 +201,14 @@ _ft_atoi_base:
     procedure_end
 
     .einval:
-    call    ERRNO_CALL
+    safe_call   ERRNO_CALL
     mov     [rax], byte 22 ; EINVAL
     xor     rax, rax
     procedure_end
 
     .erange:
     push    rax
-    call    ERRNO_CALL
+    safe_call   ERRNO_CALL
     mov     [rax], byte 34 ; ERANGE
     pop     rax
     procedure_end
