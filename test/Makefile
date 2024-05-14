@@ -28,7 +28,7 @@ CFLAGS += -g
 endif
 
 $(LIBS):
-	$(MAKE) -C $(dir $(LIBS))
+	$(MAKE) -C $(@D)
 
 %: %.c $(LIBS)
 	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
@@ -54,11 +54,11 @@ BINS_B = \
 	ft_list_remove_if \
 
 all:
-	$(MAKE) -C $(dir $(LIBS)) $@
+	@for lib in $(LIBS); do $(MAKE) -C `dirname $$lib` $@; done
 	$(MAKE) $(BINS_M)
 
 bonus:
-	$(MAKE) -C $(dir $(LIBS)) $@
+	@for lib in $(LIBS); do $(MAKE) -C `dirname $$lib` $@; done
 	$(MAKE) $(BINS_M) $(BINS_B)
 
 clean:
