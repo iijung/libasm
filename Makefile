@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/16 11:01:51 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/16 11:06:03 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ OBJS = $(SRCS:.s=.o)
 DEPS = $(SRCS:.s=.d)
 -include $(DEPS)
 
-ASFLAGS	= -w+error=all
+ASFLAGS	+= -w+error=all
+ASFLAGS	+= -MP -MD $(@:.o=.d)
 
 ifeq ($(shell uname), Darwin)
 ASFLAGS	+= -f macho64
