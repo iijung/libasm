@@ -6,15 +6,14 @@
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
     SYS_WRITE   equ 0x2000001
-    %define MALLOC_SYM  _malloc
-    %define MALLOC_CALL _malloc
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define MALLOC_SYM  malloc
+    %define MALLOC_CALL malloc
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 section .text
     global  ft_strdup
-    global  _ft_strdup
     extern  ERRNO_SYM
     extern  MALLOC_SYM
 
@@ -36,7 +35,6 @@ section .text
 ;===============================================================================
 
 ft_strdup:
-_ft_strdup:
     push    rbp
     mov     rbp, rsp
 

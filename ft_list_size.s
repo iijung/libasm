@@ -2,8 +2,8 @@
     %define ERRNO_SYM   __errno_location
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 section .bss
@@ -16,7 +16,6 @@ endstruc
 
 section .text
     global  ft_list_size
-    global  _ft_list_size
     extern  ERRNO_SYM
 
 ;===============================================================================
@@ -57,7 +56,6 @@ section .text
 ;===============================================================================
 
 ft_list_size:
-_ft_list_size:
     procedure_start
 
     xor     rax, rax

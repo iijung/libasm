@@ -4,13 +4,12 @@
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
     SYS_WRITE   equ 0x2000004
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 section .text
     global  ft_write
-    global  _ft_write
     extern  ERRNO_SYM
 
 ;===============================================================================
@@ -31,7 +30,6 @@ section .text
 ;===============================================================================
 
 ft_write:
-_ft_write:
     mov     rax, SYS_WRITE
     syscall
     cmp     rax, 0

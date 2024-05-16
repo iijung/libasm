@@ -4,10 +4,10 @@
     %define ERRNO_SYM   __errno_location
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
-    %define MALLOC_SYM  _malloc
-    %define MALLOC_CALL _malloc
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define MALLOC_SYM  malloc
+    %define MALLOC_CALL malloc
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 section .bss
@@ -20,7 +20,6 @@ endstruc
 
 section .text
     global  ft_list_push_front
-    global  _ft_list_push_front
     extern  ERRNO_SYM
     extern  MALLOC_SYM
 
@@ -84,7 +83,6 @@ ft_create_elem:
 ;===============================================================================
 
 ft_list_push_front:
-_ft_list_push_front:
     procedure_start
 
     ; if begin_list == NULL, return

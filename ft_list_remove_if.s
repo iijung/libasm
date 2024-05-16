@@ -2,8 +2,8 @@
     %define FREE_SYM  free
     %define FREE_CALL free wrt ..plt
 %else
-    %define FREE_SYM  _free
-    %define FREE_CALL _free
+    %define FREE_SYM  free
+    %define FREE_CALL free
 %endif
 
 struc t_list
@@ -16,7 +16,6 @@ section .bss
 
 section .text
     global  ft_list_remove_if
-    global  _ft_list_remove_if
     extern  FREE_SYM
 
 ;===============================================================================
@@ -83,7 +82,6 @@ delete_node:
 ;===============================================================================
 
 ft_list_remove_if:
-_ft_list_remove_if:
     ; if begin_list == NULL || cmp == NULL, return
     test    rdi, rdx
     jnz     .start

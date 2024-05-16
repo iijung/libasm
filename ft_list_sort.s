@@ -2,8 +2,8 @@
     %define ERRNO_SYM   __errno_location
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 struc t_list
@@ -17,7 +17,6 @@ section .bss
 
 section .text
     global  ft_list_sort
-    global  _ft_list_sort
     extern  ft_list_size
     extern  ERRNO_SYM
 
@@ -167,7 +166,6 @@ divide:
 ;===============================================================================
 
 ft_list_sort:
-_ft_list_sort:
     ; if rdi == NULL || rsi == NULL, return
     test    rdi, rsi
     jnz     .start

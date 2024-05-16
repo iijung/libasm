@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/16 11:06:03 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/16 11:07:26 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ ASFLAGS	+= -MP -MD $(@:.o=.d)
 
 ifeq ($(shell uname), Darwin)
 ASFLAGS	+= -f macho64
+ASFLAGS	+= --prefix _
 else
 ASFLAGS	+= -f elf64
 ASFLAGS	+= -D __LINUX__

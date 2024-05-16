@@ -4,13 +4,12 @@
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
     SYS_READ    equ 0x2000003
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 section .text
     global  ft_read
-    global  _ft_read
     extern  ERRNO_SYM
 
 ;===============================================================================
@@ -31,7 +30,6 @@ section .text
 ;===============================================================================
 
 ft_read:
-_ft_read:
     mov     rax, SYS_READ
     syscall
     cmp     rax, 0

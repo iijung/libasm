@@ -2,8 +2,8 @@
     %define ERRNO_SYM   __errno_location
     %define ERRNO_CALL  __errno_location wrt ..plt
 %else
-    %define ERRNO_SYM   ___error
-    %define ERRNO_CALL  ___error
+    %define ERRNO_SYM   __error
+    %define ERRNO_CALL  __error
 %endif
 
 section .rodata
@@ -12,7 +12,6 @@ section .rodata
 
 section .text
     global  ft_atoi_base
-    global  _ft_atoi_base
     extern  ERRNO_SYM
 
 ;===============================================================================
@@ -122,7 +121,6 @@ base_len:
 ;===============================================================================
 
 ft_atoi_base:
-_ft_atoi_base:
     procedure_start
 
     mov     rbx, rdi ; save str
