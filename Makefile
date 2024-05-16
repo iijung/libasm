@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 08:57:50 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/10 16:04:07 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/16 11:01:51 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,18 +18,6 @@
 # **************************************************************************** #
 
 AS = ./nasm
-ASFLAGS	= -w+error=all
-
-ifeq ($(shell uname), Darwin)
-ASFLAGS	+= -f macho64
-else
-ASFLAGS	+= -f elf64
-ASFLAGS	+= -D __LINUX__
-endif
-
-ifdef DEBUG
-ASFLAGS	+= -g
-endif
 
 $(AS):
 	$(MAKE) all_nasm
@@ -38,12 +26,8 @@ $(AS):
 	$(MAKE) -f nasm.mk $*
 
 # **************************************************************************** #
-# for libasm
+# fot object
 # **************************************************************************** #
-
-NAME = libasm.a
-
-ARFLAGS = rcs
 
 SRCS_M = \
 	ft_strlen.s \
@@ -64,8 +48,29 @@ OBJS = $(SRCS:.s=.o)
 DEPS = $(SRCS:.s=.d)
 -include $(DEPS)
 
+ASFLAGS	= -w+error=all
+
+ifeq ($(shell uname), Darwin)
+ASFLAGS	+= -f macho64
+else
+ASFLAGS	+= -f elf64
+ASFLAGS	+= -D __LINUX__
+endif
+
+ifdef DEBUG
+ASFLAGS	+= -g
+endif
+
 %.o: %.s $(AS)
 	$(COMPILE.s) -o $@ $<
+
+# **************************************************************************** #
+# for libasm
+# **************************************************************************** #
+
+NAME = libasm.a
+
+ARFLAGS = rcs
 
 $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $?
