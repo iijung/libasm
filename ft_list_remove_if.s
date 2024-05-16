@@ -1,19 +1,11 @@
 %include    "libasm.inc"
 
-%ifdef __LINUX__
-    %define FREE_SYM  free
-    %define FREE_CALL free wrt ..plt
-%else
-    %define FREE_SYM  free
-    %define FREE_CALL free
-%endif
-
 section .bss
     head: resb t_list_size
 
 section .text
     global  ft_list_remove_if
-    extern  FREE_SYM
+    extern  free
 
 ;===============================================================================
 ; static t_list *delete_node(t_list *node, void (*free_fct)(void *));
@@ -36,7 +28,7 @@ delete_node:
     mov   qword [rbx + t_list.data], 0
     mov   rdi, rbx
     mov   rbx, qword [rbx + t_list.next]
-    call  FREE_CALL
+    call  free
 
     mov     rax, r12
     procedure_end

@@ -11,6 +11,16 @@ struc t_list
 endstruc
 
 ;===============================================================================
+; errno
+;===============================================================================
+
+%ifdef __LINUX__
+    %define ERRNO_LOCATION __errno_location
+%else
+    %define ERRNO_LOCATION __error
+%endif
+
+;===============================================================================
 ; macro
 ;===============================================================================
 
@@ -39,7 +49,11 @@ endstruc
     mov     rbp, rsp
     sub     rsp, 8
     and     rsp, -16
+%ifdef __LINUX__
+    call    %1 wrt ..plt
+%else
     call    %1
+%endif
     leave
 %endmacro
 

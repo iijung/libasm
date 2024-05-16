@@ -1,20 +1,12 @@
 %include    "libasm.inc"
 
-%ifdef __LINUX__
-    %define ERRNO_SYM   __errno_location
-    %define ERRNO_CALL  __errno_location wrt ..plt
-%else
-    %define ERRNO_SYM   __error
-    %define ERRNO_CALL  __error
-%endif
-
 section .rodata
     whitespace: db 9, 10, 11, 12, 13, 32, 0
     sign: db '+', '-', 0
 
 section .text
     global  ft_atoi_base
-    extern  ERRNO_SYM
+    extern  ERRNO_LOCATION
 
 ;===============================================================================
 ; char *strchr(const char *s, int c)
@@ -168,14 +160,14 @@ ft_atoi_base:
     procedure_end
 
     .einval:
-    safe_call   ERRNO_CALL
+    safe_call   ERRNO_LOCATION
     mov     [rax], byte 22 ; EINVAL
     xor     rax, rax
     procedure_end
 
     .erange:
     push    rax
-    safe_call   ERRNO_CALL
+    safe_call   ERRNO_LOCATION
     mov     [rax], byte 34 ; ERANGE
     pop     rax
     procedure_end

@@ -1,13 +1,5 @@
 %include    "libasm.inc"
 
-%ifdef __LINUX__
-    %define ERRNO_SYM   __errno_location
-    %define ERRNO_CALL  __errno_location wrt ..plt
-%else
-    %define ERRNO_SYM   __error
-    %define ERRNO_CALL  __error
-%endif
-
 section .bss
     head: resb t_list_size
     cmp:  resq 1
@@ -15,7 +7,7 @@ section .bss
 section .text
     global  ft_list_sort
     extern  ft_list_size
-    extern  ERRNO_SYM
+    extern  ERRNO_LOCATION
 
 ;===============================================================================
 ; static t_list *merge(t_list *left, t_list *right)

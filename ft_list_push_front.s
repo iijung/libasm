@@ -1,21 +1,9 @@
 %include    "libasm.inc"
 
-%ifdef __LINUX__
-    %define MALLOC_SYM  malloc
-    %define MALLOC_CALL malloc wrt ..plt
-    %define ERRNO_SYM   __errno_location
-    %define ERRNO_CALL  __errno_location wrt ..plt
-%else
-    %define MALLOC_SYM  malloc
-    %define MALLOC_CALL malloc
-    %define ERRNO_SYM   __error
-    %define ERRNO_CALL  __error
-%endif
-
 section .text
     global  ft_list_push_front
-    extern  ERRNO_SYM
-    extern  MALLOC_SYM
+    extern  ERRNO_LOCATION
+    extern  malloc
 
 ;===============================================================================
 ; extern t_list *ft_create_elem(void *data);
@@ -25,7 +13,7 @@ ft_create_elem:
     procedure_start
     push    rdi
     mov     rdi, t_list_size
-    safe_call MALLOC_CALL
+    safe_call malloc
     pop     rdi
     test    rax, rax
     jz      .enomem
@@ -34,7 +22,7 @@ ft_create_elem:
     procedure_end
 
     .enomem:
-    safe_call ERRNO_CALL
+    safe_call ERRNO_LOCATION
     mov     [rax], byte 12 ; ENOMEM
     xor     rax, rax
     procedure_end

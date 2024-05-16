@@ -2,22 +2,14 @@
 
 %ifdef __LINUX__
     SYS_WRITE   equ 1
-    %define MALLOC_SYM  malloc
-    %define MALLOC_CALL malloc wrt ..plt
-    %define ERRNO_SYM   __errno_location
-    %define ERRNO_CALL  __errno_location wrt ..plt
 %else
     SYS_WRITE   equ 0x2000001
-    %define MALLOC_SYM  malloc
-    %define MALLOC_CALL malloc
-    %define ERRNO_SYM   __error
-    %define ERRNO_CALL  __error
 %endif
 
 section .text
     global  ft_strdup
-    extern  ERRNO_SYM
-    extern  MALLOC_SYM
+    extern  ERRNO_LOCATION
+    extern  malloc
 
 ;===============================================================================
 ; char *strdup(const char *s1);
@@ -40,7 +32,7 @@ ft_strdup:
 
     ; rax = malloc(rdi)
     mov     rdi, rbx
-    safe_call MALLOC_CALL
+    safe_call malloc
     test    rax, rax
     jz     .errno
     mov     rdi, rax
@@ -60,7 +52,7 @@ ft_strdup:
     .errno:
     neg     rax
     mov     rdx, rax
-    safe_call ERRNO_CALL
+    safe_call ERRNO_LOCATION
     mov     [rax], rdx
     mov     rax, -1
     jmp     .copy_end
