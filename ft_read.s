@@ -1,3 +1,5 @@
+%include    "libasm.inc"
+
 %ifdef __LINUX__
     SYS_READ    equ 0
     %define ERRNO_SYM   __errno_location
@@ -13,20 +15,7 @@ section .text
     extern  ERRNO_SYM
 
 ;===============================================================================
-; macro
-;===============================================================================
-
-%macro  safe_call 1
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 8
-    and     rsp, -16
-    call    %1
-    leave
-%endmacro
-
-;===============================================================================
-; ssize_t ft_read(int fildes, void *buf, size_t nbyte);
+; csize_t ft_read(int fildes, void *buf, size_t nbyte);
 ;===============================================================================
 
 ft_read:

@@ -1,3 +1,5 @@
+%include    "libasm.inc"
+
 %ifdef __LINUX__
     SYS_WRITE   equ 1
     %define ERRNO_SYM   __errno_location
@@ -11,19 +13,6 @@
 section .text
     global  ft_write
     extern  ERRNO_SYM
-
-;===============================================================================
-; macro
-;===============================================================================
-
-%macro  safe_call 1
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 8
-    and     rsp, -16
-    call    %1
-    leave
-%endmacro
 
 ;===============================================================================
 ; ssize_t ft_write(int fildes, const void *buf, size_t nbytes);

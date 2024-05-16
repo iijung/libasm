@@ -1,3 +1,5 @@
+%include    "libasm.inc"
+
 %ifdef __LINUX__
     %define MALLOC_SYM  malloc
     %define MALLOC_CALL malloc wrt ..plt
@@ -10,51 +12,10 @@
     %define ERRNO_CALL  __error
 %endif
 
-section .bss
-
-struc t_list
-    .data: resq 1
-    .next: resq 1
-endstruc
-
-
 section .text
     global  ft_list_push_front
     extern  ERRNO_SYM
     extern  MALLOC_SYM
-
-;===============================================================================
-; macro
-;===============================================================================
-
-%macro  procedure_start 0
-    push    rbp
-    mov     rbp, rsp
-    push    rbx
-    push    r12
-    push    r13
-    push    r14
-    push    r15
-%endmacro
-
-%macro  procedure_end 0
-    pop     r15
-    pop     r14
-    pop     r13
-    pop     r12
-    pop     rbx
-    pop     rbp
-    ret
-%endmacro
-
-%macro  safe_call 1
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 8
-    and     rsp, -16
-    call    %1
-    leave
-%endmacro
 
 ;===============================================================================
 ; extern t_list *ft_create_elem(void *data);

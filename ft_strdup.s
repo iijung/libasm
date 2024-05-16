@@ -1,3 +1,5 @@
+%include    "libasm.inc"
+
 %ifdef __LINUX__
     SYS_WRITE   equ 1
     %define MALLOC_SYM  malloc
@@ -16,19 +18,6 @@ section .text
     global  ft_strdup
     extern  ERRNO_SYM
     extern  MALLOC_SYM
-
-;===============================================================================
-; macro
-;===============================================================================
-
-%macro  safe_call 1
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 8
-    and     rsp, -16
-    call    %1
-    leave
-%endmacro
 
 ;===============================================================================
 ; char *strdup(const char *s1);

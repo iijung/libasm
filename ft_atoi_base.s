@@ -1,3 +1,5 @@
+%include    "libasm.inc"
+
 %ifdef __LINUX__
     %define ERRNO_SYM   __errno_location
     %define ERRNO_CALL  __errno_location wrt ..plt
@@ -13,39 +15,6 @@ section .rodata
 section .text
     global  ft_atoi_base
     extern  ERRNO_SYM
-
-;===============================================================================
-; macro
-;===============================================================================
-
-%macro  procedure_start 0
-    push    rbp
-    mov     rbp, rsp
-    push    rbx
-    push    r12
-    push    r13
-    push    r14
-    push    r15
-%endmacro
-
-%macro  procedure_end 0
-    pop     r15
-    pop     r14
-    pop     r13
-    pop     r12
-    pop     rbx
-    pop     rbp
-    ret
-%endmacro
-
-%macro  safe_call 1
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 8
-    and     rsp, -16
-    call    %1
-    leave
-%endmacro
 
 ;===============================================================================
 ; char *strchr(const char *s, int c)

@@ -1,3 +1,5 @@
+%include    "libasm.inc"
+
 %ifdef __LINUX__
     %define FREE_SYM  free
     %define FREE_CALL free wrt ..plt
@@ -6,50 +8,12 @@
     %define FREE_CALL free
 %endif
 
-struc t_list
-    .data: resq 1
-    .next: resq 1
-endstruc
-
 section .bss
     head: resb t_list_size
 
 section .text
     global  ft_list_remove_if
     extern  FREE_SYM
-
-;===============================================================================
-; macro
-;===============================================================================
-
-%macro  procedure_start 0
-    push    rbp
-    mov     rbp, rsp
-    push    rbx
-    push    r12
-    push    r13
-    push    r14
-    push    r15
-%endmacro
-
-%macro  procedure_end 0
-    pop     r15
-    pop     r14
-    pop     r13
-    pop     r12
-    pop     rbx
-    pop     rbp
-    ret
-%endmacro
-
-%macro  safe_call 1
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 8
-    and     rsp, -16
-    call    %1
-    leave
-%endmacro
 
 ;===============================================================================
 ; static t_list *delete_node(t_list *node, void (*free_fct)(void *));
