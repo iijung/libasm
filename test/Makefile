@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 20:27:58 by minjungk          #+#    #+#              #
-#    Updated: 2024/05/10 16:09:22 by minjungk         ###   ########.fr        #
+#    Updated: 2024/05/17 14:15:34 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@
 
 LIBS = ../libasm.a
 
+CFLAGS = -Wall -Wextra -Werror -pedantic
 CPPFLAGS = $(foreach dir, $(dir $(LIBS)), -I$(dir))
 LDFLAGS = $(foreach dir, $(dir $(LIBS)), -L$(dir))
 LDLIBS  = $(foreach lib, $(notdir $(LIBS)), -l$(patsubst lib%.a,%,$(lib)))

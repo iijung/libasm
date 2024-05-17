@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 07:38:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/05/07 11:48:28 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:16:02 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@
 static void	check_leaks(void)
 {
 	system("leaks ft_list_push_front");
+}
+
+static void	_usage(const char *pgname)
+{
+	int			i;
+	const char	*example[] = {
+		"seq 10 | shuf | xargs ",
+		"seq 10 | sort -R | xargs ",
+		"jot -r 10 1 100 | sort -uR | xargs",
+		NULL
+	};
+
+	printf("Usage: %s [num1, ...]\n", pgname);
+	i = 0;
+	while (example[i] != NULL)
+		printf("\t%s %s\n", example[i++], pgname);
 }
 
 static void	_free(t_list *curr)
@@ -38,17 +54,20 @@ static void	_show(t_list *curr)
 	printf("(null)\n");
 }
 
-int	main(int ac, char **av)
+int	main(int argc, char **argv)
 {
 	t_list	*head;
 
+	if (argc < 2)
+	{
+		_usage(argv[0]);
+		return (EXIT_FAILURE);
+	}
 	atexit(check_leaks);
 	head = NULL;
+	while (--argc > 0)
+		ft_list_push_front(&head, argv[argc]);
 	printf("===============================================================\n");
-	_show(head);
-	ft_list_push_front(&head, "world");
-	_show(head);
-	ft_list_push_front(&head, "hello");
 	_show(head);
 	printf("===============================================================\n");
 	_free(head);
