@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>	// EXIT_SUCCESS, EXIT_FAILURE, mkstemp, system
-#include <stdio.h>	// printf, dprintf, sprintf
+#include <stdio.h>	// printf, dprintf, snprintf
 #include <string.h>	// strlen, strcpy
 #include <fcntl.h>	// open
 #include <unistd.h>	// close, read, write, unlink
@@ -55,7 +55,7 @@ static int	_test(const char *filename)
 {
 	int			fd[2];
 	char		name[2][PATH_MAX];
-	char		command[PATH_MAX];
+	char		cmd[PATH_MAX * 2 + 16];
 	int			result;
 
 	enum e_type {expect, output};
@@ -68,12 +68,12 @@ static int	_test(const char *filename)
 	close(fd[expect]);
 	close(fd[output]);
 	printf("output ========================================================\n");
-	sprintf(command, "cat %s", name[output]);
-	system(command);
+	snprintf(cmd, sizeof(cmd), "cat %s", name[output]);
+	system(cmd);
 	printf("\n");
 	printf("diff ==========================================================\n");
-	sprintf(command, "diff %s %s", name[expect], name[output]);
-	result = system(command);
+	snprintf(cmd, sizeof(cmd), "diff %s %s", name[expect], name[output]);
+	result = system(cmd);
 	printf("===============================================================\n");
 	unlink(name[expect]);
 	unlink(name[output]);
