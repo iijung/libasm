@@ -6,59 +6,78 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:46:32 by minjungk          #+#    #+#             */
-/*   Updated: 2024/04/29 03:12:04 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:17:18 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>	// EXIT_SUCCESS, EXIT_FAILURE, mkstemp, system
 #include <stdio.h>	// printf, dprintf, sprintf
 #include <string.h>	// strlen, strcpy
-#include <unistd.h>	// close, unlink
+#include <fcntl.h>	// open
+#include <unistd.h>	// close, read, write, unlink
+#include <limits.h>	// PATH_MAX
 #include <assert.h>
 #include <errno.h>
 #include "libasm.h"
 
 static void	_usage(const char *pgname)
 {
-	int			i;
-	const char	*example[] = {
-		"''",
-		"\"$(head -c 10000 /dev/urandom)\"",
-		"\"$(tr -dc [:print:] < /dev/urandom | head -c 100000)\"",
-		"\"$(tr -dc [:print:] < /dev/urandom | head -c 131071)\" # 0x1FFFF",
-		NULL
-	};
-
-	printf("Usage: %s <str>\n", pgname);
-	i = 0;
-	while (example[i] != NULL)
-		printf("\t%s %s\n", pgname, example[i++]);
+	printf("Usage: %s <filename>\n", pgname);
+	printf("\thead -c 10000 /dev/urandom > filename\n");
 }
 
-static void	_test(const char *str)
+static void	_copy(const char *filename, int out, ssize_t (*write_func)())
 {
-	int				fd[2];
-	char			tmp[2][1024];
-	char			command[1024];
-	const size_t	len = strlen(str);
+	ssize_t		len;
+	char		buf[1024];
+	const int	in = open(filename, O_RDONLY);
 
-	strcpy(tmp[0], "./expect_XXXXXXXXXX");
-	strcpy(tmp[1], "./output_XXXXXXXXXX");
-	fd[0] = mkstemp(tmp[0]);
-	fd[1] = mkstemp(tmp[1]);
-	assert(fd[0] != -1 && fd[1] != -1);
-	errno = 0;
-	dprintf(fd[0], "\nret[%zd] errno[%d]\n", write(fd[0], str, len), errno);
-	errno = 0;
-	dprintf(fd[1], "\nret[%zd] errno[%d]\n", ft_write(fd[1], str, len), errno);
-	close(fd[0]);
-	close(fd[1]);
-	sprintf(command, "diff %s %s", tmp[0], tmp[1]);
-	printf("diff ==========================================================\n");
+	bzero(buf, sizeof(buf));
+	while (1)
+	{
+		errno = 0;
+		len = read(in, buf, sizeof(buf));
+		if (len <= 0)
+			break ;
+		write_func(out, buf, len);
+	}
+	close(in);
+	if (len == 0)
+		return ;
+	dprintf(out, "rtn[%zd] errno[%d: %s] buf[%s]\n",
+		len,
+		errno,
+		strerror(errno),
+		buf);
+}
+
+static int	_test(const char *filename)
+{
+	int			fd[2];
+	char		name[2][PATH_MAX];
+	char		command[PATH_MAX];
+	int			result;
+
+	enum e_type {expect, output};
+	strcpy(name[expect], "./expect_XXXXXXXXXX");
+	strcpy(name[output], "./output_XXXXXXXXXX");
+	fd[expect] = mkstemp(name[expect]);
+	fd[output] = mkstemp(name[output]);
+	_copy(filename, fd[expect], write);
+	_copy(filename, fd[output], ft_write);
+	close(fd[expect]);
+	close(fd[output]);
+	printf("output ========================================================\n");
+	sprintf(command, "cat %s", name[output]);
 	system(command);
+	printf("\n");
+	printf("diff ==========================================================\n");
+	sprintf(command, "diff %s %s", name[expect], name[output]);
+	result = system(command);
 	printf("===============================================================\n");
-	unlink(tmp[0]);
-	unlink(tmp[1]);
+	unlink(name[expect]);
+	unlink(name[output]);
+	return (result);
 }
 
 int	main(int argc, char **argv)
