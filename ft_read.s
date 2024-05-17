@@ -26,7 +26,7 @@ ft_read:
     neg     rax
     .errno_macos:
     mov     rdx, rax
-    safe_call ERRNO_LOCATION
+    symbol_call ERRNO_LOCATION
     mov     [rax], rdx
     mov     rax, -1
     ret

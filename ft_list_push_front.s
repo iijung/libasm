@@ -13,7 +13,7 @@ ft_create_elem:
     procedure_start
     push    rdi
     mov     rdi, t_list_size
-    safe_call malloc
+    symbol_call malloc
     pop     rdi
     test    rax, rax
     jz      .enomem
@@ -22,7 +22,7 @@ ft_create_elem:
     procedure_end
 
     .enomem:
-    safe_call ERRNO_LOCATION
+    symbol_call ERRNO_LOCATION
     mov     [rax], byte 12 ; ENOMEM
     xor     rax, rax
     procedure_end

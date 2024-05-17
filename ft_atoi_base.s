@@ -160,14 +160,14 @@ ft_atoi_base:
     procedure_end
 
     .einval:
-    safe_call   ERRNO_LOCATION
+    symbol_call ERRNO_LOCATION
     mov     [rax], byte 22 ; EINVAL
     xor     rax, rax
     procedure_end
 
     .erange:
     push    rax
-    safe_call   ERRNO_LOCATION
+    symbol_call ERRNO_LOCATION
     mov     [rax], byte 34 ; ERANGE
     pop     rax
     procedure_end

@@ -49,13 +49,16 @@ endstruc
     mov     rbp, rsp
     sub     rsp, 8
     and     rsp, -16
-%ifdef __LINUX__
-    call    %1 wrt ..plt
-%else
     call    %1
-%endif
     leave
 %endmacro
 
+%macro  symbol_call 1
+  %ifdef __LINUX__
+    safe_call %1 wrt ..plt
+  %else
+    safe_call %1
+  %endif
+%endmacro
 
 %endif ; LIBASM_INC

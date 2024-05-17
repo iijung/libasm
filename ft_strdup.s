@@ -32,7 +32,7 @@ ft_strdup:
 
     ; rax = malloc(rdi)
     mov     rdi, rbx
-    safe_call malloc
+    symbol_call malloc
     test    rax, rax
     jz     .errno
     mov     rdi, rax
@@ -52,7 +52,7 @@ ft_strdup:
     .errno:
     neg     rax
     mov     rdx, rax
-    safe_call ERRNO_LOCATION
+    symbol_call ERRNO_LOCATION
     mov     [rax], rdx
     mov     rax, -1
     jmp     .copy_end

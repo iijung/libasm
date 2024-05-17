@@ -28,7 +28,7 @@ delete_node:
     mov   qword [rbx + t_list.data], 0
     mov   rdi, rbx
     mov   rbx, qword [rbx + t_list.next]
-    call  free
+    symbol_call free
 
     mov     rax, r12
     procedure_end

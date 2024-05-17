@@ -27,7 +27,7 @@ ft_list_size:
     procedure_end
 
     .eoverflow:
-    safe_call ERRNO_LOCATION
+    symbol_call ERRNO_LOCATION
     mov     [rax], byte 84 ; EOVERFLOW
     mov     rax, 0x7fffffff
     procedure_end
