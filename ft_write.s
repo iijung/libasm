@@ -17,12 +17,14 @@ section .text
 ft_write:
     mov     rax, SYS_WRITE
     syscall
+    jc     .errno_macos
     cmp     rax, 0
-    jl     .errno
+    jl     .errno_linux
     ret
 
-    .errno:
+    .errno_linux:
     neg     rax
+    .errno_macos:
     mov     rdx, rax
     safe_call ERRNO_LOCATION
     mov     [rax], rdx
