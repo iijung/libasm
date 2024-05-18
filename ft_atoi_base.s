@@ -125,6 +125,9 @@ ft_atoi_base:
     sete    r14b
     .no_sign:
 
+    cmp     byte [rbx], 0
+    je      .einval
+
     ; calculate result
     .accumulate:
         cmp     byte [rbx], 0
