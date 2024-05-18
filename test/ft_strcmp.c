@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:35:54 by minjungk          #+#    #+#             */
-/*   Updated: 2024/04/25 05:23:43 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:05:25 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static void	_default(void)
 	_test("ABA", "ABZ");
 	_test("ABJ", "ABC");
 	_test("\201", "A");
+	printf("[custom test]==================================================\n");
+	_test("\xff", "");
+	_test("\xff", "\xfe");
+	_test("\xff", "\xff");
+	_test("\xfe", "\xff");
+	_test("", "\xff");
 	printf("===============================================================\n");
 }
 
@@ -43,6 +49,7 @@ int	main(int argc, char **argv)
 		printf("Run, ");
 		printf("s=\"$(tr -dc [:print:] < /dev/urandom | head -c 131071)\";");
 		printf("./ft_strcmp \"$s\" \"$s\"\n");
+		printf("Run, ./ft_strcmp $'\\xff' $'\\xfe'\n");
 		return (EXIT_FAILURE);
 	}
 	s1 = argv[1];

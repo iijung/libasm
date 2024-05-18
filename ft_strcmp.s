@@ -4,38 +4,29 @@ section .text
     global  ft_strcmp
 
 ft_strcmp:
-    push    rbp
-    mov     rbp, rsp
-
-    push    rdi ; s1
-    push    rsi ; s2
-    push    rbx
+    procedure_start
 
     xor     rcx, rcx
     .loop:
     mov     al, [rdi + rcx]
-    test    al, al
-    je      .loop_end
     mov     bl, [rsi + rcx]
+    test    al, al
+    je      .negative
     test    bl, bl
-    je      .loop_end
+    je      .positive
     cmp     al, bl
-    jne     .loop_end
+    jc      .negative
+    jne     .positive
     inc     rcx
     jmp     .loop
-    .loop_end:
 
-    xor     rax, rax
-    mov     al, [rdi + rcx]
-    sub     al, [rsi + rcx]
-    test    al, al
-    jns     .positive
-    movsx   rax, al
+    .negative:
+    sub     bl, al
+    movzx   rax, bl
+    neg     rax
+    procedure_end
+
     .positive:
-
-    pop     rbx
-    pop     rsi
-    pop     rdi
-
-    pop     rbp
-    ret
+    sub     al, bl
+    movzx   rax, al
+    procedure_end
