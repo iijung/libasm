@@ -58,6 +58,11 @@ static void	_custom(char *nptr, char *base, int expect, int errnum)
 	org[err] = errno;
 	_prefix(nptr, base, you[val] == expect, you[err] == errnum);
 	printf("= %11d (%d:%s)\n", you[val], you[err], strerror(you[err]));
+	if (diff)
+	{
+		printf("%52s", "└ Customized and may differ from the original");
+		printf(" = %11d (%d:%s)\n", org[val], org[err], strerror(org[err]));
+	}
 }
 
 int	test_atoi_base(void)
@@ -67,7 +72,7 @@ int	test_atoi_base(void)
 	_decimal("    123");
 	_decimal("123abc");
 	_custom("123abc", "55", 0, EINVAL);
-	_decimal("");
+	_custom("", NULL, 0, EINVAL);
 	_decimal("0");
 	_decimal("2147483647");
 	_decimal("-2147483648");

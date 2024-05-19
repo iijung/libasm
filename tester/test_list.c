@@ -55,8 +55,8 @@ static void	_destroy(t_list **head)
 	{
 		data = strdup((*head)->data);
 		ft_list_remove_if(head, data, _cmp, free);
-		free(data);
 		printf("rm[%s] => ", data);
+		free(data);
 		_show(*head);
 	}
 }

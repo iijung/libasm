@@ -14,7 +14,6 @@
 #include <time.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/syslimits.h>
 
 char	*random_str(size_t len, int min, int max)
 {
