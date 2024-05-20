@@ -47,7 +47,7 @@ endstruc
 %macro  safe_call 1
     push    rbp
     mov     rbp, rsp
-    sub     rsp, 8
+    sub     rsp, 16
     and     rsp, -16
     call    %1
     leave
