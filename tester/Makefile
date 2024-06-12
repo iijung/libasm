@@ -20,7 +20,6 @@
 LIBS = ../libasm.a
 
 CPPFLAGS	+= $(foreach dir, $(dir $(LIBS)), -I$(dir))
-CPPFLAGS	+= $(foreach dir, $(dir $(LIBS)), -I$(dir))
 LDFLAGS 	+= $(foreach dir, $(dir $(LIBS)), -L$(dir))
 LDLIBS  	+= $(foreach lib, $(notdir $(LIBS)), -l$(patsubst lib%.a,%,$(lib)))
 
