@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 01:30:53 by minjungk          #+#    #+#             */
-/*   Updated: 2024/05/18 18:28:09 by minjungk         ###   ########.fr       */
+/*   Updated: 2025/08/31 07:05:13 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	_common(size_t (*func)(), int fd, void *data)
 {
-	dprintf(fd, "len[%zd] data[%s]", func(data), data);
+	dprintf(fd, "len[%zd] data[%s]", func(data), (char *)data);
 }
 
 static void	_expect(int fd, void *data)
