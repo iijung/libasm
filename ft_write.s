@@ -15,11 +15,18 @@ section .text
 ;===============================================================================
 
 ft_write:
+    push    rbp
+    mov     rbp, rsp
+
     mov     rax, SYS_WRITE
     syscall
-    jc     .errno_macos
-    cmp     rax, 0
-    jl     .errno_linux
+%ifdef __LINUX__
+    test   rax, rax
+    jl     .errno_linux ; if rax < 0, error
+%else
+    jc     .errno_macos ; if CF=1, error
+%endif
+    pop    rbp
     ret
 
     .errno_linux:
@@ -29,4 +36,5 @@ ft_write:
     symbol_call ERRNO_LOCATION
     mov     [rax], rdx
     mov     rax, -1
+    pop     rbp
     ret

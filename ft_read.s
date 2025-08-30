@@ -15,11 +15,18 @@ section .text
 ;===============================================================================
 
 ft_read:
+    push    rbp
+    mov     rbp, rsp
+
     mov     rax, SYS_READ
     syscall
-    jc     .errno_macos
-    cmp     rax, 0
+%ifdef __LINUX__
+    test    rax, rax
     jl     .errno_linux
+%else
+    jc     .errno_macos
+%endif
+    pop     rbp
     ret
 
     .errno_linux:
@@ -29,4 +36,5 @@ ft_read:
     symbol_call ERRNO_LOCATION
     mov     [rax], rdx
     mov     rax, -1
+    pop     rbp
     ret
