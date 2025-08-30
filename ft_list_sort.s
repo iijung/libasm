@@ -123,8 +123,13 @@ divide:
 
 ft_list_sort:
     ; if rdi == NULL || rsi == NULL, return
-    test    rdi, rsi
-    jnz     .start
+    test    rdi, rdi
+    jz      .early_return
+    test    rsi, rsi
+    jz      .early_return
+    jmp     .start
+
+    .early_return:
     ret
 
     .start:

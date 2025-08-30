@@ -39,8 +39,13 @@ delete_node:
 
 ft_list_remove_if:
     ; if begin_list == NULL || cmp == NULL, return
-    test    rdi, rdx
-    jnz     .start
+    test    rdi, rdi
+    jz      .early_return
+    test    rdx, rdx
+    jz      .early_return
+    jmp     .start
+
+    .early_return:
     ret
 
     .start:
